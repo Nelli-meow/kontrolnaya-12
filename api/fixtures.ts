@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import config from "./config";
 import User from "./models/User";
 import {randomUUID} from "crypto";
+import PhotoCard from "./models/PhotoCard";
 
 
 const run = async () => {
@@ -11,26 +12,49 @@ const run = async () => {
 
     try {
         await db.dropCollection('users');
+        await db.dropCollection('photocards');
     } catch (error) {
         console.log(error);
     }
 
-    await User.create(
+    const user = await User.create({
+        email: "Jane@gmail.com",
+        password: "123",
+        token: randomUUID(),
+        role: "user",
+        displayName: "USER",
+    });
+
+    const admin = await User.create({
+        email: "John@gmail.com",
+        password: "666",
+        token: randomUUID(),
+        role: "admin",
+        displayName: "ADMIN",
+    });
+
+     await PhotoCard.create([
         {
-            email: 'Jane@gmail.com',
-            password: "123",
-            token: randomUUID(),
-            role: "user",
-            displayName: "USER LOX",
+            title: "Красивая картиночка для юзера",
+            username: user._id,
+            image: "./fixtures/photos/_ (2).jpeg",
         },
         {
-            email: 'John@gmail.com',
-            password: "666",
-            token: randomUUID(),
-            role: "admin",
-            displayName: "ADMIN",
-        }
-    );
+            title: "Красивая картиночка для юзера",
+            username: user._id,
+            image: "./fixtures/photos/_ (4).jpeg",
+        },
+        {
+            title: "Красивая картиночка для админа",
+            username: admin._id,
+            image: "./fixtures/photos/_ (3).jpeg",
+        },
+        {
+            title: "Красивая картиночка для админа",
+            username: admin._id,
+            image: "./fixtures/photos/Igel.jpeg",
+        },
+    ]);
 
     await db.close();
 };

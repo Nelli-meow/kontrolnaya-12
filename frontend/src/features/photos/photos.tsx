@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { selectIsLoading, selectPhotos } from './photosSlice.ts';
 import { useEffect, useState } from 'react';
-import {  deletePhoto, fetchPhotosThunk } from './photosThunk.ts';
+import { deletePhoto, fetchPhotosThunk } from './photosThunk.ts';
 import PreLoader from '../../components/UI/PreLoader.tsx';
 import PhotosCardItem from '../../components/PhotosCardItem/PhotosCardItem.tsx';
 import DialogWindow from '../../components/DIalogWindow/DialogWindow.tsx';
@@ -27,7 +27,7 @@ const Photos = () => {
   };
 
   const onOpenWindow = (_id: string, image: string, title: string) => {
-    setSelectedPhoto({ image, title });
+    setSelectedPhoto({image, title});
   };
 
   return (
@@ -37,16 +37,18 @@ const Photos = () => {
       {isLoading ? (
         <PreLoader/>
       ) : photos.length === 0 ? (
-          <p className="text-center">No photos here yet :(</p>
+        <p className="text-center">No photos here yet :(</p>
       ) : (
-          <div className="grid grid-cols-3">
-            {photos.map((photo) => (
-                <div key={photo._id} className="container mx-auto px-4 mb-5">
-                  <PhotosCardItem username={photo.username} title={photo.title} image={photo.image} _id={photo._id} displayName={photo.username.displayName} onDelete={onDelete}  onOpen={onOpenWindow}  />
-                </div>
-            ))}
-          </div>
-        )
+        <div className="grid grid-cols-3">
+          {photos.map((photo) => (
+            <div key={photo._id} className="container mx-auto px-4 mb-5">
+              <PhotosCardItem username={photo.username} title={photo.title} image={photo.image} _id={photo._id}
+                              displayName={photo.username ? photo.username.displayName : 'Unknown User'}
+                              onDelete={onDelete} onOpen={onOpenWindow}/>
+            </div>
+          ))}
+        </div>
+      )
       }
 
       {selectedPhoto && (
