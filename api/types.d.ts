@@ -7,3 +7,9 @@ export interface UserFields {
     email: string;
     image: string;
 }
+
+export interface PhotoCardMutation {
+    image: string | null;
+    title: string;
+    username: ObjectId;
+}

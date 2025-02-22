@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import config from './config';
 import cors from 'cors';
 import UsersRouter from "./routers/Users";
+import PhotoCardRouter from "./routers/PhotoCard";
 
 const app = express();
 const port = 8000;
@@ -11,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use('/users', UsersRouter);
+app.use('/photoCards', PhotoCardRouter);
 
 app.use(express.static('public'));
 
