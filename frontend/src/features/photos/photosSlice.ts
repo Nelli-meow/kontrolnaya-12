@@ -23,6 +23,7 @@ export const selectPhotos = (state: RootState) => state.photos.Photos;
 export const selectIsLoading = (state: RootState) => state.photos.isLoading;
 export const selectIsCreateLoading = (state: RootState) => state.photos.createLoading;
 
+
 export const PhotosSlice = createSlice({
   name: 'photos',
   initialState,

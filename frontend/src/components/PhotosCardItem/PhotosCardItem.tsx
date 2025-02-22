@@ -4,6 +4,7 @@ import NoPic
 import React from 'react';
 import { selectUser } from '../../features/users/UsersSlice.ts';
 import { useAppSelector } from '../../app/hooks.ts';
+import { Button } from '@mui/material';
 
 
 interface PhotoProps {
@@ -13,19 +14,20 @@ interface PhotoProps {
   _id: string;
   displayName: string;
   onDelete: (id: string) => void;
+  onOpen: (id: string, image: string, title: string) => void;
 }
 
 
-const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, displayName, onDelete}) => {
+const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, displayName, onDelete, onOpen}) => {
   const imageSrc = image ? `${apiURL}/${image}` : NoPic;
   const user = useAppSelector(selectUser);
 
   return (
     <div
       className="max-w-sm bg-gradient-to-b from-sky-500 to-teal-200 border border-teal-500 rounded-lg shadow-md mb-5 h-full flex flex-col">
-      <a href={`/photo/${_id}`}>
+      <Button onClick={() => onOpen(_id, image || '', title)}>
         <img className="rounded-t-lg" src={imageSrc} alt={title}/>
-      </a>
+      </Button>
       <div className="p-5 flex flex-col flex-grow items-baseline">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-blue-900">
           {title}

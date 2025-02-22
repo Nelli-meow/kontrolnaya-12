@@ -1,28 +1,33 @@
 import { useAppDispatch, useAppSelector } from '../../app/hooks.ts';
 import { selectIsLoading, selectPhotos } from './photosSlice.ts';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {  deletePhoto, fetchPhotosThunk } from './photosThunk.ts';
 import PreLoader from '../../components/UI/PreLoader.tsx';
 import PhotosCardItem from '../../components/PhotosCardItem/PhotosCardItem.tsx';
-import { selectUser } from '../users/UsersSlice.ts';
+import DialogWindow from '../../components/DIalogWindow/DialogWindow.tsx';
 
 const Photos = () => {
   const photos = useAppSelector(selectPhotos);
   const dispatch = useAppDispatch();
   const isLoading = useAppSelector(selectIsLoading);
-  const user = useAppSelector(selectUser);
+
+  const [selectedPhoto, setSelectedPhoto] = useState<{ image: string, title: string } | null>(null);
 
   useEffect(() => {
     dispatch(fetchPhotosThunk());
   }, [dispatch]);
 
-  console.log(photos);
-
-  console.log(user);
-
   const onDelete = async (id: string) => {
     await dispatch(deletePhoto(id));
     dispatch(fetchPhotosThunk());
+  };
+
+  const onCloseWindow = () => {
+    setSelectedPhoto(null);
+  };
+
+  const onOpenWindow = (_id: string, image: string, title: string) => {
+    setSelectedPhoto({ image, title });
   };
 
   return (
@@ -37,12 +42,20 @@ const Photos = () => {
           <div className="grid grid-cols-3">
             {photos.map((photo) => (
                 <div key={photo._id} className="container mx-auto px-4 mb-5">
-                  <PhotosCardItem username={photo.username.displayName} title={photo.title} image={photo.image} _id={photo._id} displayName={photo.username.displayName} onDelete={onDelete} />
+                  <PhotosCardItem username={photo.username.displayName} title={photo.title} image={photo.image} _id={photo._id} displayName={photo.username.displayName} onDelete={onDelete}  onOpen={onOpenWindow}  />
                 </div>
             ))}
           </div>
         )
       }
+
+      {selectedPhoto && (
+        <DialogWindow
+          image={selectedPhoto.image}
+          title={selectedPhoto.title}
+          onClose={onCloseWindow}
+        />
+      )}
     </>
   );
 };
