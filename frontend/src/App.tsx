@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/" element={<MainPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path="*" element={<p className="text-center">Page is not  found</p>} />
       </Routes>
     </>
   );

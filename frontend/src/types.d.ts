@@ -39,3 +39,16 @@ export interface ValidationError {
 export interface GlobalError {
   error: string;
 }
+
+export interface IPhoto {
+  title: string;
+  image: string | null;
+  username: string;
+  _id: string;
+}
+
+export interface IPhotoMutation {
+  title: string;
+  image: string | null;
+  username: string;
+}
