@@ -1,12 +1,21 @@
-import { useState } from 'react';
-import './App.css'
+import './App.css';
+
+import { Route, Routes } from 'react-router-dom';
+import MainPage from './containers/MainPage.tsx';
+import RegisterPage from './features/users/RegisterPage.tsx';
+import LoginPage from './features/users/LoginPage.tsx';
+import Header from './components/Header/Header.tsx';
 
 const App = () => {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-
+      <Header/>
+      <Routes>
+        <Route path="/" element={<MainPage/>}/>
+        <Route path="/register" element={<RegisterPage/>}/>
+        <Route path="/login" element={<LoginPage/>}/>
+      </Routes>
     </>
   );
 };
