@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { persistor, store } from './app/store.ts';
 import { BrowserRouter } from 'react-router-dom';
 import { addInterceptor } from './axiosApi.ts';
+import { ToastContainer } from 'react-toastify';
 
 addInterceptor(store);
 
@@ -15,6 +16,7 @@ createRoot(document.getElementById('root')!).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
+          <ToastContainer/>
           <App/>
         </BrowserRouter>
       </PersistGate>

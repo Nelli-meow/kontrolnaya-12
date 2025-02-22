@@ -9,7 +9,7 @@ const PhotoCardRouter = express.Router();
 
 PhotoCardRouter.get("/", async (req, res) => {
     try {
-        const photos = await PhotoCard.find();
+        const photos = await PhotoCard.find().populate("username");
 
         res.status(200).send(photos);
     }

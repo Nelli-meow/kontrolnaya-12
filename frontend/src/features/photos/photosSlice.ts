@@ -1,14 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {  IPhoto } from '../../types';
 import { RootState } from '../../app/store.ts';
-import { addNewPhoto, fetchPhotosThunk } from './photosThunk.ts';
+import { addNewPhoto, deletePhoto, fetchPhotosThunk } from './photosThunk.ts';
 
 interface IPhotosState {
   Photos: IPhoto[],
   fetchPhotos: boolean,
   isLoading: boolean,
   createLoading: boolean,
-  deleteCocktail: boolean,
+  deletePhoto: boolean,
 }
 
 const initialState: IPhotosState = {
@@ -16,7 +16,7 @@ const initialState: IPhotosState = {
   fetchPhotos: false,
   isLoading: false,
   createLoading: false,
-  deleteCocktail: false,
+  deletePhoto: false,
 };
 
 export const selectPhotos = (state: RootState) => state.photos.Photos;
@@ -54,18 +54,17 @@ export const PhotosSlice = createSlice({
       .addCase(addNewPhoto.rejected, (state) => {
         state.fetchPhotos = false;
         state.createLoading = false;
-      });
+      })
 
-      // .addCase(deleteCocktail.pending, (state) => {
-      //   state.deleteCocktail = true;
-      // })
-      // .addCase(deleteCocktail.fulfilled, (state, action) => {
-      //   state.deleteCocktail = false;
-      //   state.Cocktails = state.Cocktails.filter(cocktail => cocktail._id !== action.meta.arg);
-      // })
-      // .addCase(deleteCocktail.rejected, (state) => {
-      //   state.deleteCocktail = false;
-      // })
+      .addCase(deletePhoto.pending, (state) => {
+        state.deletePhoto = true;
+      })
+      .addCase(deletePhoto.fulfilled, (state) => {
+        state.deletePhoto = false;
+      })
+      .addCase(deletePhoto.rejected, (state) => {
+        state.deletePhoto = false;
+      });
   }
 });
 

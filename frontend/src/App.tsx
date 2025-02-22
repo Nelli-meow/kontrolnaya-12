@@ -5,8 +5,13 @@ import MainPage from './containers/MainPage.tsx';
 import RegisterPage from './features/users/RegisterPage.tsx';
 import LoginPage from './features/users/LoginPage.tsx';
 import Header from './components/Header/Header.tsx';
+import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
+import NewPhoto from './features/photos/NewPhoto/NewPhoto.tsx';
+import { useAppSelector } from './app/hooks.ts';
+import { selectUser } from './features/users/UsersSlice.ts';
 
 const App = () => {
+  const user = useAppSelector(selectUser);
 
   return (
     <>
@@ -16,6 +21,12 @@ const App = () => {
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="*" element={<p className="text-center">Page is not  found</p>} />
+
+        <Route path="/photoCards/new" element={
+          <ProtectedRoute isaAllowed={!!user}>
+            <NewPhoto/>
+          </ProtectedRoute>
+        } />
       </Routes>
     </>
   );

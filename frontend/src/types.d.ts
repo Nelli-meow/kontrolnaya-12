@@ -43,12 +43,11 @@ export interface GlobalError {
 export interface IPhoto {
   title: string;
   image: string | null;
-  username: string;
+  username: IUser;
   _id: string;
 }
 
 export interface IPhotoMutation {
   title: string;
   image: string | null;
-  username: string;
 }

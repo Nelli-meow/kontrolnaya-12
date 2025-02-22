@@ -12,8 +12,8 @@ export const fetchPhotosThunk = createAsyncThunk(
   }
 );
 
-export const getOneCocktail = createAsyncThunk<IPhoto, string>(
-  'photoCards/getOneCocktail',
+export const getOnePhoto = createAsyncThunk<IPhoto, string>(
+  'photoCards/getOnePhoto',
   async (id: string) => {
     const response = await axiosApi<IPhoto>(`/photoCards/${id}`);
     return response.data;
@@ -40,8 +40,8 @@ export const addNewPhoto = createAsyncThunk<void, { photo: IPhotoMutation, token
 );
 
 export const deletePhoto = createAsyncThunk<void, string>(
-  'cocktails/deleteCocktail',
+  'photoCards/deletePhoto',
   async (id)=> {
-    await axiosApi.delete(`/cocktails/${id}`);
+    await axiosApi.delete(`/photoCards/${id}`);
   }
 );

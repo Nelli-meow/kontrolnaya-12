@@ -2,6 +2,8 @@ import { apiURL } from '../../globalConstants.ts';
 import NoPic
   from '../../assets/no-photo-or-blank-image-icon-loading-images-or-missing-image-mark-image-not-available-or-image-coming-soon-sign-simple-nature-silhouette-in-frame-isolated-illustration-vector.jpg';
 import React from 'react';
+import { selectUser } from '../../features/users/UsersSlice.ts';
+import { useAppSelector } from '../../app/hooks.ts';
 
 
 interface PhotoProps {
@@ -9,11 +11,14 @@ interface PhotoProps {
   image?: string | null;
   title: string;
   _id: string;
+  displayName: string;
+  onDelete: (id: string) => void;
 }
 
 
-const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title}) => {
+const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, displayName, onDelete}) => {
   const imageSrc = image ? `${apiURL}/${image}` : NoPic;
+  const user = useAppSelector(selectUser);
 
   return (
     <div
@@ -21,7 +26,7 @@ const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title}) => 
       <a href={`/photo/${_id}`}>
         <img className="rounded-t-lg" src={imageSrc} alt={title}/>
       </a>
-      <div className="p-5 flex flex-col flex-grow">
+      <div className="p-5 flex flex-col flex-grow items-baseline">
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-blue-900">
           {title}
         </h5>
@@ -30,9 +35,14 @@ const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title}) => 
             href={`/photos/${username}`}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-indigo-200 rounded-lg hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-400 dark:hover:bg-indigo-300 dark:focus:ring-indigo-900 transition-all duration-300"
           >
-            By: {username}
+            By: {displayName}
           </a>
         </div>
+        {user && user.role === 'admin' && (
+          <>
+            <button onClick={() => onDelete(_id)} className=" font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 text-white bg-sky-700 hover:bg-sky-800 m-3">delete photo</button>
+          </>
+        )}
       </div>
     </div>
   );

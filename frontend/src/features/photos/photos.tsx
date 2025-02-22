@@ -18,13 +18,15 @@ const Photos = () => {
 
   console.log(photos);
 
+  console.log(user);
+
   const onDelete = async (id: string) => {
     await dispatch(deletePhoto(id));
     dispatch(fetchPhotosThunk());
   };
 
   return (
-    <div>
+    <>
       <h3 className="text-center text-3xl my-5">Photos</h3>
 
       {isLoading ? (
@@ -32,23 +34,16 @@ const Photos = () => {
       ) : photos.length === 0 ? (
           <p className="text-center">No photos here yet :(</p>
       ) : (
-          <>
+          <div className="grid grid-cols-3">
             {photos.map((photo) => (
-              <div key={photo._id}>
-                <div className="container mx-auto px-4">
-                  <PhotosCardItem username={photo.username} title={photo.title} image={photo.image} _id={photo._id}/>
-                  {user && user.role === 'admin' && (
-                    <>
-                      <button onClick={() => onDelete(photo._id)} className=" font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 text-white bg-red-700 hover:bg-red-800">delete photo</button>
-                    </>
-                  )}
+                <div key={photo._id} className="container mx-auto px-4 mb-5">
+                  <PhotosCardItem username={photo.username.displayName} title={photo.title} image={photo.image} _id={photo._id} displayName={photo.username.displayName} onDelete={onDelete} />
                 </div>
-              </div>
             ))}
-          </>
+          </div>
         )
       }
-    </div>
+    </>
   );
 };
 

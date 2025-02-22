@@ -14,6 +14,7 @@ const PhotoCardSchema = new Schema({
     username: {
         type: Schema.Types.ObjectId,
         required: true,
+        ref: "User",
     }
 });
 
