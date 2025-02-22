@@ -78,7 +78,7 @@ PhotoCardRouter.post("/", imagesUpload.single('image'), auth, permit('user', 'ad
 });
 
 
-PhotoCardRouter.delete("/:id", auth, permit('admin'), async (req, res) => {
+PhotoCardRouter.delete("/:id", auth, permit('admin', 'user'), async (req, res) => {
     try {
         const {id} = req.params;
 

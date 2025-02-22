@@ -34,7 +34,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
     navigate('/');
   };
 
-
   const handlePhoto = () => {
     navigate('/photoCards/new');
     handleClose();
@@ -44,8 +43,6 @@ const UserMenu: React.FC<Props> = ({user}) => {
     navigate(`/photos/${user._id}`);
     handleClose();
   };
-
-
 
   return user && (
     <>

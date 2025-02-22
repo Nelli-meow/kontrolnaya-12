@@ -42,7 +42,6 @@ const UsersPhotos = () => {
     navigate('/photoCards/new');
   };
 
-
   return (
     <div className="max-w-6xl mx-auto bg-white shadow-lg rounded-lg p-5">
       {isLoading ? (

@@ -22,8 +22,6 @@ const PhotosCardItem: React.FC<PhotoProps> = ({ username, image, _id, title, dis
   const imageSrc = image ? `${apiURL}/${image}` : NoPic;
   const user = useAppSelector(selectUser);
 
-
-
   return (
     <div
       className="max-w-sm bg-gradient-to-b from-sky-500 to-teal-200 border border-teal-500 rounded-lg shadow-md mb-5 h-full flex flex-col">
@@ -42,7 +40,7 @@ const PhotosCardItem: React.FC<PhotoProps> = ({ username, image, _id, title, dis
             By: {displayName}
           </a>
         </div>
-        {user && user.role === 'admin' && (
+        {user && (user.role === 'admin' || user._id === username._id) && (
           <>
             <button onClick={() => onDelete(_id)} className=" font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 text-white bg-sky-700 hover:bg-sky-800 m-3">delete photo</button>
           </>

@@ -18,7 +18,7 @@ const initialState = {
 
 const RegisterPage = () => {
   const [form, setForm] = useState<RegisterMutation>({...initialState});
-  const [errors, setErrors] = useState<{email?: string}>({});
+  const [errors, setErrors] = useState<{ email?: string }>({});
   const dispatch = useAppDispatch();
   const registerError = useAppSelector(selectRegisterError);
   const navigate = useNavigate();
@@ -28,8 +28,8 @@ const RegisterPage = () => {
 
     setForm(prev => ({...prev, [name]: value}));
 
-    if(name === 'email') {
-      if(regEmail.test(value)) {
+    if (name === 'email') {
+      if (regEmail.test(value)) {
         setErrors(prev => ({...prev, email: ''}));
       } else {
         setErrors(prev => ({...prev, email: 'Invalid email format'}));

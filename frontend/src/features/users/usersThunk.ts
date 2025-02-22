@@ -66,8 +66,6 @@ export const register = createAsyncThunk<
   }
 );
 
-
-
 export const login = createAsyncThunk<IUser, LoginMutation, {rejectValue: GlobalError}>(
   'users/login',
   async (loginMutation: LoginMutation, {rejectWithValue}) => {
