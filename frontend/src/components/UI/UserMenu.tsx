@@ -41,9 +41,10 @@ const UserMenu: React.FC<Props> = ({user}) => {
   };
 
   const handleUsersPhotos = () => {
-    navigate('/my-photos');
+    navigate(`/photos/${user._id}`);
     handleClose();
   };
+
 
 
   return user && (
