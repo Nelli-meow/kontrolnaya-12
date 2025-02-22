@@ -8,7 +8,7 @@ import { Button } from '@mui/material';
 
 
 interface PhotoProps {
-  username: { _id: string},
+  username: { _id: string },
   image?: string | null;
   title: string;
   _id: string;
@@ -17,8 +17,7 @@ interface PhotoProps {
   onOpen: (id: string, image: string, title: string) => void;
 }
 
-
-const PhotosCardItem: React.FC<PhotoProps> = ({ username, image, _id, title, displayName, onDelete, onOpen}) => {
+const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, displayName, onDelete, onOpen}) => {
   const imageSrc = image ? `${apiURL}/${image}` : NoPic;
   const user = useAppSelector(selectUser);
 
@@ -42,7 +41,10 @@ const PhotosCardItem: React.FC<PhotoProps> = ({ username, image, _id, title, dis
         </div>
         {user && (user.role === 'admin' || user._id === username._id) && (
           <>
-            <button onClick={() => onDelete(_id)} className=" font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 text-white bg-sky-700 hover:bg-sky-800 m-3">delete photo</button>
+            <button onClick={() => onDelete(_id)}
+                    className=" font-medium rounded text-sm px-5 py-2.5 text-center me-2 mb-2 text-white bg-sky-700 hover:bg-sky-800 m-3">delete
+              photo
+            </button>
           </>
         )}
       </div>

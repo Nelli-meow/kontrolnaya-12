@@ -20,7 +20,7 @@ const NewPhoto = () => {
       await dispatch(addNewPhoto({photo, token: user.token}));
       await dispatch(fetchPhotosThunk());
 
-      if(user?.role === 'user') {
+      if (user?.role === 'user') {
         toast.success('Your photo was successfully created! ;)');
       }
       navigate('/');
