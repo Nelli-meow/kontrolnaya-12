@@ -22,14 +22,18 @@ PhotoCardRouter.get('/:id', async (req, res, next) => {
     try {
         const {id} = req.params;
 
-        const photo = await PhotoCard.findById(id);
+        const photos = await PhotoCard.find({ username: id }).populate("username", "_id displayName");
 
-        if (!photo) {
-            res.status(404).send({error: 'photo not found!'});
+        if (!photos) {
+            res.status(404).send({error: 'photos not found!'});
             return;
         }
 
-        res.status(200).send(photo);
+        if(!id) {
+            res.status(404).send({error: 'id not found'});
+        }
+
+        res.status(200).send(photos);
     } catch (error) {
         res.status(500).send({message: "Something went wrong"});
     }

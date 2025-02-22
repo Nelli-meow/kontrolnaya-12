@@ -12,13 +12,13 @@ export const fetchPhotosThunk = createAsyncThunk(
   }
 );
 
-export const getOnePhoto = createAsyncThunk<IPhoto, string>(
-  'photoCards/getOnePhoto',
+export const getUsersPhotos = createAsyncThunk(
+  'photoCards/getUsersPhotos',
   async (id: string) => {
-    const response = await axiosApi<IPhoto>(`/photoCards/${id}`);
+    const response = await axiosApi(`/photoCards/${id}`);
     return response.data;
-  });
-
+  }
+);
 
 export const addNewPhoto = createAsyncThunk<void, { photo: IPhotoMutation, token: string }>(
   'photoCards/addNewPhoto',

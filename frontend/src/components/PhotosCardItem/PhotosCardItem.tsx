@@ -8,19 +8,21 @@ import { Button } from '@mui/material';
 
 
 interface PhotoProps {
-  username: string;
+  username: { _id: string},
   image?: string | null;
   title: string;
   _id: string;
-  displayName: string;
+  displayName?: string;
   onDelete: (id: string) => void;
   onOpen: (id: string, image: string, title: string) => void;
 }
 
 
-const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, displayName, onDelete, onOpen}) => {
+const PhotosCardItem: React.FC<PhotoProps> = ({ username, image, _id, title, displayName, onDelete, onOpen}) => {
   const imageSrc = image ? `${apiURL}/${image}` : NoPic;
   const user = useAppSelector(selectUser);
+
+
 
   return (
     <div
@@ -34,7 +36,7 @@ const PhotosCardItem: React.FC<PhotoProps> = ({username, image, _id, title, disp
         </h5>
         <div className="mt-auto flex flex-wrap justify-between items-center gap-2">
           <a
-            href={`/photos/${username}`}
+            href={`/photos/${username._id}`}
             className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-indigo-200 rounded-lg hover:bg-indigo-300 focus:ring-4 focus:outline-none focus:ring-indigo-300 dark:bg-indigo-400 dark:hover:bg-indigo-300 dark:focus:ring-indigo-900 transition-all duration-300"
           >
             By: {displayName}

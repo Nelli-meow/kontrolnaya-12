@@ -9,6 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute.tsx';
 import NewPhoto from './features/photos/NewPhoto/NewPhoto.tsx';
 import { useAppSelector } from './app/hooks.ts';
 import { selectUser } from './features/users/UsersSlice.ts';
+import UsersPhotos from './containers/UsersPhotos/UsersPhotos.tsx';
 
 const App = () => {
   const user = useAppSelector(selectUser);
@@ -20,7 +21,7 @@ const App = () => {
         <Route path="/" element={<MainPage/>}/>
         <Route path="/register" element={<RegisterPage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
-        <Route path="/photo/:id" element={<MainPage/>}/>
+        <Route path="/photos/:id" element={<UsersPhotos/>}/>
         <Route path="*" element={<p className="text-center">Page is not  found</p>} />
         <Route path="/photoCards/new" element={
           <ProtectedRoute isaAllowed={!!user}>
